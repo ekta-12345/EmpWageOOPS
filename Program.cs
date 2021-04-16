@@ -2,25 +2,19 @@
 
 namespace EmpWageOOPS
 {
-    class UC7CodeRefractor
+    class UC8WageMultipleCompanies
     {
-
-
         public const int FULL_TIME = 1; //Constant variable
 
         public const int PART_TIME = 2;
 
-        public const int EMP_RATE_PER_HOUR = 20;
+        // public const int EMP_RATE_PER_HOUR = 20;
 
-        public const int NUM_OF_WORKING_DAYS = 20;
+        //public const int MAX_WORKING_HRS = 100;
 
-        public const int MAX_WORKING_HRS = 100;
+        // public const int MAX_WORKING_DAYS = 20;
 
-        public const int MAX_WORKING_DAYS = 20;
-
-
-
-        public static int ComputeEmployeeWage()
+        public static int ComputeEmpWage(string company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth)
 
         {
 
@@ -36,7 +30,7 @@ namespace EmpWageOOPS
 
             Random random = new Random(); //Random Class
 
-            while (hrs < MAX_WORKING_HRS && workingDays <= MAX_WORKING_DAYS)
+            while (hrs < empRatePerHour && numOfWorkingDays <= maxHoursPerMonth)
 
             // for (int Day = 0; Day < NUM_OF_WORKING_DAYS; Day++)
 
@@ -74,21 +68,27 @@ namespace EmpWageOOPS
 
 
 
-                empWage = EMP_RATE_PER_HOUR * emphrs; // Calculate empWage
+                // Calculate empWage
 
                 hrs += emphrs; //Display empwage
 
                 totalempwage = totalempwage + empWage; //Calculate total employe month wage
 
+                empWage = empRatePerHour * emphrs;
+
             }
+
+
+
+            Console.WriteLine($"Toatal Emp wage for company:- {company} is {totalempwage}");
 
             Console.WriteLine("Employe Wage Per Day :- " + empWage);
 
-            Console.WriteLine("Total Employe Month Wage :- " + totalempwage);
+            //Console.WriteLine("Total Employe Month Wage :- " + totalempwage);
 
-            Console.WriteLine("Employee wage for " + workingDays + " days " + totalempwage);
+            // Console.WriteLine("Employee wage for " + workingDays + " days " + totalempwage);
 
-            Console.WriteLine("Working hours " + hrs);
+            Console.WriteLine("Working hours " + hrs + "\n");
 
             return totalempwage;
 
@@ -96,7 +96,10 @@ namespace EmpWageOOPS
 
         }
 
+
     
+
+
 
     static void Main(string[] args)
         {
@@ -112,8 +115,11 @@ namespace EmpWageOOPS
             //UC5WagesForMonth.WageForMonth();
             //UC6WageMaxHours uC6 = new UC6WageMaxHours();
             //UC6WageMaxHours.WagesCondition();
-            UC7CodeRefractor uC7 = new UC7CodeRefractor();
-            UC7CodeRefractor.ComputeEmployeeWage();
+            //UC7CodeRefractor uC7 = new UC7CodeRefractor();
+            //UC7CodeRefractor.ComputeEmployeeWage();
+            UC8WageMultipleCompanies uC8 = new UC8WageMultipleCompanies();
+            UC8WageMultipleCompanies.ComputeEmpWage("Amazon",20,4,20);
+            UC8WageMultipleCompanies.ComputeEmpWage("Infosys", 30, 6, 20);
         }
     }
 }
