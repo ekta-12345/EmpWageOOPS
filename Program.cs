@@ -2,8 +2,10 @@
 
 namespace EmpWageOOPS
 {
-    class UC6WageMaxHours
+    class UC7CodeRefractor
     {
+
+
         public const int FULL_TIME = 1; //Constant variable
 
         public const int PART_TIME = 2;
@@ -16,7 +18,9 @@ namespace EmpWageOOPS
 
         public const int MAX_WORKING_DAYS = 20;
 
-        public static void WagesCondition()
+
+
+        public static int ComputeEmployeeWage()
 
         {
 
@@ -86,10 +90,15 @@ namespace EmpWageOOPS
 
             Console.WriteLine("Working hours " + hrs);
 
+            return totalempwage;
+
+
+
         }
 
+    
 
-        static void Main(string[] args)
+    static void Main(string[] args)
         {
             //    UC1EmpCheck uC1 = new UC1EmpCheck();
             //    uC1.PresentorAbsent();
@@ -101,8 +110,10 @@ namespace EmpWageOOPS
             //UC4SwitchCase.SwitchCaseStatement();
             //UC5WagesForMonth uC5 = new UC5WagesForMonth();
             //UC5WagesForMonth.WageForMonth();
-            UC6WageMaxHours uC6 = new UC6WageMaxHours();
-            UC6WageMaxHours.WagesCondition();
+            //UC6WageMaxHours uC6 = new UC6WageMaxHours();
+            //UC6WageMaxHours.WagesCondition();
+            UC7CodeRefractor uC7 = new UC7CodeRefractor();
+            UC7CodeRefractor.ComputeEmployeeWage();
         }
     }
 }
