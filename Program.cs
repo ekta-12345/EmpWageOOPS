@@ -2,7 +2,7 @@
 
 namespace EmpWageOOPS
 {
-    class UC4SwitchCase
+    class UC5WagesForMonth
     {
         public const int FULL_TIME = 1; //Constant variable
 
@@ -10,7 +10,9 @@ namespace EmpWageOOPS
 
         public const int EMP_RATE_PER_HOUR = 20;
 
-        public static void SwitchCaseStatement()
+        public const int NUM_OF_WORKING_DAYS = 20;
+
+        public static void WageForMonth()
 
         {
 
@@ -18,42 +20,56 @@ namespace EmpWageOOPS
 
             int empWage = 0;
 
+            int totalempwage = 0;
+
             Random random = new Random(); //Random Class
 
-            int EmpCheack = random.Next(0, 3); //Random Generate 0 ,1,2
-
-            switch (EmpCheack) //Switch case Statment
+            for (int Day = 0; Day < NUM_OF_WORKING_DAYS; Day++)
 
             {
 
-                case FULL_TIME: //Employee is FullTime=1
+                int EmpCheack = random.Next(0, 3); //Random Generate 0 ,1,2
 
-                    emphrs = 8;
+                switch (EmpCheack) //Switch case Statment
 
-                    break;
+                {
 
-                case PART_TIME: //Employee is FullTime=2
+                    case FULL_TIME: //Employee is FullTime=1
 
-                    emphrs = 4;
+                        emphrs = 8;
 
-                    break;
+                        break;
 
-                default:
+                    case PART_TIME: //Employee is FullTime=2
 
-                    emphrs = 0;
+                        emphrs = 4;
 
-                    break;
+                        break;
+
+                    default:
+
+                        emphrs = 0;
+
+                        break;
+
+                }
+
+
+
+                empWage = EMP_RATE_PER_HOUR * emphrs; // Calculate empWage
+
+                //Display empwage
+
+                totalempwage = totalempwage + empWage; //Calculate total employe month wage
 
             }
 
+            Console.WriteLine("Employe Wage Per Day :- " + empWage);
 
+            Console.WriteLine("Total Employe Month Wage :- " + totalempwage);
 
-            empWage = EMP_RATE_PER_HOUR * emphrs; // Calculate empWage
-
-            Console.WriteLine("Employe Wage Per Day:- " + empWage); //Display empwage
 
         }
-
 
         static void Main(string[] args)
         {
@@ -63,9 +79,10 @@ namespace EmpWageOOPS
             //uC2.EmployeeWage();
             //UC3EmpPartTime uC3 = new UC3EmpPartTime();
             //uC3.ParttimeEmployeeWage();
-            UC4SwitchCase uC4 = new UC4SwitchCase();
-            UC4SwitchCase.SwitchCaseStatement();
-
+            //UC4SwitchCase uC4 = new UC4SwitchCase();
+            //UC4SwitchCase.SwitchCaseStatement();
+            UC5WagesForMonth uC5 = new UC5WagesForMonth();
+            UC5WagesForMonth.WageForMonth();
         }
     }
 }
