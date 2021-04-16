@@ -1,63 +1,76 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace EmpWageOOPS
 {
-    class UC10ManageEmplWageOfMultipleCompanies
+    public interface IComputeEmpWage
+    {
+        public void addCompanyEmpWage(string company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth);
+        public void ComputeEmpWage();
+        public int getTotalWage(string company);
+
+    }
+    public class EmployeeWageComputationProblem
     {
         public string company;
         public int empRatePerHour;
         public int numOfWorkingDays;
         public int maxHoursPerMonth;
         public int totalempwage;
-        public UC10ManageEmplWageOfMultipleCompanies(string company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth)
+        internal int totalEmpWage;
+
+        public EmployeeWageComputationProblem(string company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth)
         {
             this.company = company;
             this.empRatePerHour = empRatePerHour;
             this.numOfWorkingDays = numOfWorkingDays;
             this.maxHoursPerMonth = maxHoursPerMonth;
+            this.totalempwage = 0;
         }
-        public void setTotalEmpWage(int TotalEmpWage)
+        public void setTotalEmpwage(int totalEmpWage)
         {
-            this.totalempwage = totalempwage;
+            this.totalempwage = totalEmpWage;
         }
         public string toString()
         {
             return "Total Emp Wage for company :- " + company + " is :- " + totalempwage;
         }
     }
-    public class EmpWageBuilderArray
+    public class EmpWageBuilder : IComputeEmpWage
     {
         public const int FULL_TIME = 1;     //Constant variable
         public const int PART_TIME = 2;
 
-        public int numofCompany = 0;
-        private UC10ManageEmplWageOfMultipleCompanies[] UC10ManageEmplWageOfMultipleCompaniesArray;
+        private LinkedList<EmployeeWageComputationProblem> companyEmpWageList;
+        private Dictionary<string, EmployeeWageComputationProblem> companyToEmpWageMap;
 
-        public EmpWageBuilderArray()
+        public EmpWageBuilder()
         {
-            this.UC10ManageEmplWageOfMultipleCompaniesArray = new UC10ManageEmplWageOfMultipleCompanies[5];
+            this.companyEmpWageList = new LinkedList<EmployeeWageComputationProblem>();
+            this.companyToEmpWageMap = new Dictionary<string, EmployeeWageComputationProblem>();
         }
         public void addComapnyEmpWage(string company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth)
         {
-            UC10ManageEmplWageOfMultipleCompaniesArray[this.numofCompany] = new UC10ManageEmplWageOfMultipleCompanies(company, empRatePerHour, numOfWorkingDays, maxHoursPerMonth);
-            numofCompany++;
+            EmployeeWageComputationProblem companyEmpWage = new EmployeeWageComputationProblem(company, empRatePerHour, numOfWorkingDays, maxHoursPerMonth);
+            this.companyEmpWageList.AddLast(companyEmpWage);
+            this.companyToEmpWageMap.Add(company, companyEmpWage);
         }
         public void ComputeEmployeeWage()
         {
-            for (int i = 0; i < numofCompany; i++)
+            foreach (EmployeeWageComputationProblem companyEmpWage in this.companyEmpWageList)
             {
-                UC10ManageEmplWageOfMultipleCompaniesArray[i].setTotalEmpWage(this.ComputeEmployeeWage(this.UC10ManageEmplWageOfMultipleCompaniesArray[i]));
-                Console.WriteLine(this.UC10ManageEmplWageOfMultipleCompaniesArray[i].toString());
+                companyEmpWage.setTotalEmpwage(this.ComputeEmployeeWage(EmployeeWageComputationProblem));
+                Console.WriteLine(companyEmpWage.toString());
             }
         }
-        private int ComputeEmployeeWage(UC10ManageEmplWageOfMultipleCompanies UC10ManageEmplWageOfMultipleCompanies)
+        private int ComputeEmployeeWage(EmployeeWageComputationProblem companyEmpWage)
         {
             int emphrs = 0;
             int empWage = 0;
             int totalempwage = 0;
             int hrs = 0;
             int workingDays = 1;
-            while (emphrs <= UC10ManageEmplWageOfMultipleCompanies.maxHoursPerMonth && workingDays < UC10ManageEmplWageOfMultipleCompanies.numOfWorkingDays)
+            while (emphrs <= companyEmpWage.maxHoursPerMonth && workingDays < companyEmpWage.numOfWorkingDays)
             {
 
                 workingDays++;
@@ -77,55 +90,38 @@ namespace EmpWageOOPS
                 }
                 hrs += emphrs;
 
-                Console.WriteLine("Day " + workingDays + " Emp hrs:- " + emphrs);//Display empwage
+                Console.WriteLine("Day " + workingDays + " Emp hrs:- " + emphrs);
 
                 //totalempwage = totalempwage + empWage;      //Calculate total employe month wage
                 //empWage = empRatePerHour * emphrs;
 
             }
-            return emphrs * UC10ManageEmplWageOfMultipleCompanies.empRatePerHour;
-
-
-
-
+            return emphrs * companyEmpWage.empRatePerHour;
+        }
+        public int getTotalWage(string company)
+        {
+            return this.companyToEmpWageMap[company].totalEmpWage;
         }
 
-
-
-
-
-
-        static void Main(string[] args)
+        public void addCompanyEmpWage(string company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth)
         {
-            //    UC1EmpCheck uC1 = new UC1EmpCheck();
-            //    uC1.PresentorAbsent();
-            //UC2DailyWage uC2 = new UC2DailyWage();
-            //uC2.EmployeeWage();
-            //UC3EmpPartTime uC3 = new UC3EmpPartTime();
-            //uC3.ParttimeEmployeeWage();
-            //UC4SwitchCase uC4 = new UC4SwitchCase();
-            //UC4SwitchCase.SwitchCaseStatement();
-            //UC5WagesForMonth uC5 = new UC5WagesForMonth();
-            //UC5WagesForMonth.WageForMonth();
-            //UC6WageMaxHours uC6 = new UC6WageMaxHours();
-            //UC6WageMaxHours.WagesCondition();
-            //UC7CodeRefractor uC7 = new UC7CodeRefractor();
-            //UC7CodeRefractor.ComputeEmployeeWage();
-            //UC8WageMultipleCompanies uC8 = new UC8WageMultipleCompanies();
-            //UC8WageMultipleCompanies.ComputeEmpWage("Amazon",20,4,20);
-            //UC8WageMultipleCompanies.ComputeEmpWage("Infosys", 30, 6, 20);
-            //UC9StoreWageMultpleCompanies Dmart = new UC9StoreWageMultpleCompanies("Dmart", 20, 4, 20);
-            //UC9StoreWageMultpleCompanies Reliance = new UC9StoreWageMultpleCompanies("Reliance", 30, 5, 20);
-            //Dmart.ComputeEmployeeWage(); //call method
-            //Console.WriteLine(Dmart.toString());
-            //Reliance.ComputeEmployeeWage();//call method
-            //Console.WriteLine(Reliance.toString());
-            EmpWageBuilderArray empWageBuilder = new EmpWageBuilderArray();   //Create object of class
-            empWageBuilder.addComapnyEmpWage("Dmart", 20, 2, 10);  //call method
-            empWageBuilder.addComapnyEmpWage("Reliance", 10, 4, 20); //call method
-            empWageBuilder.ComputeEmployeeWage(); //call method
+            throw new NotImplementedException();
+        }
+
+        public void ComputeEmpWage()
+        {
+            throw new NotImplementedException();
+        }
+    }
+    class Program
+    {
+        public static void Main(String[] args)
+        {
+            EmpWageBuilder epWageBuilder = new EmpWageBuilder();   //Create object of class
+            epWageBuilder.addComapnyEmpWage("Dmart", 20, 2, 10);  //call method
+            epWageBuilder.addComapnyEmpWage("Reliance", 10, 4, 20); //call method
+            epWageBuilder.ComputeEmployeeWage();  //call method
+            Console.WriteLine("Totsl Wage For Dmart Comapny :- " + epWageBuilder.getTotalWage("Dmart"));
         }
     }
 }
-
-
