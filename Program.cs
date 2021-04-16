@@ -2,19 +2,43 @@
 
 namespace EmpWageOOPS
 {
-    class UC8WageMultipleCompanies
+    class UC9StoreWageMultpleCompanies
     {
         public const int FULL_TIME = 1; //Constant variable
 
         public const int PART_TIME = 2;
 
-        // public const int EMP_RATE_PER_HOUR = 20;
 
-        //public const int MAX_WORKING_HRS = 100;
 
-        // public const int MAX_WORKING_DAYS = 20;
+        private string company;
 
-        public static int ComputeEmpWage(string company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth)
+        private int empRatePerHour;
+
+        private int numOfWorkingDays;
+
+        private int maxHoursPerMonth;
+
+        private string totalempwage;
+
+
+
+        public UC9StoreWageMultpleCompanies(string company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth)
+
+        {
+
+            this.company = company;
+
+            this.empRatePerHour = empRatePerHour;
+
+            this.numOfWorkingDays = numOfWorkingDays;
+
+            this.maxHoursPerMonth = maxHoursPerMonth;
+
+
+
+        }
+
+        public void ComputeEmployeeWage()
 
         {
 
@@ -30,7 +54,7 @@ namespace EmpWageOOPS
 
             Random random = new Random(); //Random Class
 
-            while (hrs < empRatePerHour && numOfWorkingDays <= maxHoursPerMonth)
+            while (hrs < this.empRatePerHour && this.numOfWorkingDays <= this.maxHoursPerMonth)
 
             // for (int Day = 0; Day < NUM_OF_WORKING_DAYS; Day++)
 
@@ -80,7 +104,7 @@ namespace EmpWageOOPS
 
 
 
-            Console.WriteLine($"Toatal Emp wage for company:- {company} is {totalempwage}");
+            // Console.WriteLine($"Toatal Emp wage for company:- {company} is {totalempwage}");
 
             Console.WriteLine("Employe Wage Per Day :- " + empWage);
 
@@ -90,18 +114,28 @@ namespace EmpWageOOPS
 
             Console.WriteLine("Working hours " + hrs + "\n");
 
-            return totalempwage;
+            //return totalempwage;
 
+        }
 
+        public string toString()
+
+        {
+
+            return "Total Emp Wage for company :- " + company + "is :- " + totalempwage;
 
         }
 
 
-    
 
 
 
-    static void Main(string[] args)
+
+
+
+
+
+        static void Main(string[] args)
         {
             //    UC1EmpCheck uC1 = new UC1EmpCheck();
             //    uC1.PresentorAbsent();
@@ -117,9 +151,15 @@ namespace EmpWageOOPS
             //UC6WageMaxHours.WagesCondition();
             //UC7CodeRefractor uC7 = new UC7CodeRefractor();
             //UC7CodeRefractor.ComputeEmployeeWage();
-            UC8WageMultipleCompanies uC8 = new UC8WageMultipleCompanies();
-            UC8WageMultipleCompanies.ComputeEmpWage("Amazon",20,4,20);
-            UC8WageMultipleCompanies.ComputeEmpWage("Infosys", 30, 6, 20);
+            //UC8WageMultipleCompanies uC8 = new UC8WageMultipleCompanies();
+            //UC8WageMultipleCompanies.ComputeEmpWage("Amazon",20,4,20);
+            //UC8WageMultipleCompanies.ComputeEmpWage("Infosys", 30, 6, 20);
+            UC9StoreWageMultpleCompanies Dmart = new UC9StoreWageMultpleCompanies("Dmart", 20, 4, 20);
+            UC9StoreWageMultpleCompanies Reliance = new UC9StoreWageMultpleCompanies("Reliance", 30, 5, 20);
+            Dmart.ComputeEmployeeWage(); //call method
+            Console.WriteLine(Dmart.toString());
+            Reliance.ComputeEmployeeWage();//call method
+            Console.WriteLine(Reliance.toString());
         }
     }
 }
